@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week1</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDnSXcVKi1FebgZ9NyutNEIDiOJFewNrrQ",
+            authDomain: "today-62d7b.firebaseapp.com",
+            projectId: "today-62d7b",
+            storageBucket: "today-62d7b.appspot.com",
+            messagingSenderId: "524114737624",
+            appId: "1:524114737624:web:f16e1de4e67a4a70a95aad"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    
+        async function saveContent(id) {
+            const content = document.getElementById(id).value;
+            console.log(`Saving content for ${id}: ${content}`);
+            await setDoc(doc(db, 'sharedContent', id), {
+                text: content
+            });
+            console.log(`Content saved for ${id}`);
+        }
+    
+        async function loadContent(id) {
+            console.log(`Loading content for ${id}`);
+            const docRef = doc(db, 'sharedContent', id);
+            try {
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) { // 올바른 메서드 사용
+                    console.log(`Content loaded for ${id}: ${docSnap.data().text}`);
+                    document.getElementById(id).value = docSnap.data().text;
+                } else {
+                    console.log(`No content found for ${id}`);
+                }
+            } catch (error) {
+                console.error(`Error loading content for ${id}:`, error);
+            }
+        }
+    
+        window.onload = function() {
+            const textareas = document.getElementsByTagName('textarea');
+            for (let i = 0; i < textareas.length; i++) {
+                loadContent(textareas[i].id);
+            }
+        };
+    </script>
+    
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="4">Weekly 나를 살리는 3오늘 & 3집중<br>□ 밤 PM. □ 새벽 AM. □ 낮 PM.</td>
+        </tr>
+        <tr>
+            <td colspan="4">25주차 강단제목과 본문:</td>
+        </tr>
+        <tr>
+            <th>/</th>
+            <th>오늘의 말씀<br>설교 중에 나온 말씀 성구를 약속으로 붙잡고 나누기</th>
+            <th>오늘의 기도<br>강단말씀으로 기도문 쓰기</th>
+            <th>오늘의 전도<br>한 주간 만날 사람, 전도대상자, 시설, 장소</th>
+        </tr>
+        <tr>
+            <th rowspan="2">월 서론</th>
+            <td><textarea id="monday-word-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="monday-prayer-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td rowspan="2"><textarea id="monday-evangelism" rows="8" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea id="monday-word-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="monday-prayer-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <th rowspan="2">화 1-1</th>
+            <td><textarea id="tuesday-word-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="tuesday-prayer-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td rowspan="2"><textarea id="tuesday-evangelism" rows="8" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea id="tuesday-word-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="tuesday-prayer-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <th rowspan="2">수 1-2</th>
+            <td><textarea id="wednesday-word-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="wednesday-prayer-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td rowspan="2"><textarea id="wednesday-evangelism" rows="8" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea id="wednesday-word-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="wednesday-prayer-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <th rowspan="2">목 2-1</th>
+            <td><textarea id="thursday-word-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="thursday-prayer-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td rowspan="2"><textarea id="thursday-evangelism" rows="8" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea id="thursday-word-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="thursday-prayer-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <th rowspan="2">금 2-2</th>
+            <td><textarea id="friday-word-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="friday-prayer-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td rowspan="2"><textarea id="friday-evangelism" rows="8" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea id="friday-word-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="friday-prayer-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <th rowspan="2">토 결론</th>
+            <td><textarea id="saturday-word-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="saturday-prayer-1" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td rowspan="2"><textarea id="saturday-evangelism" rows="8" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea id="saturday-word-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+            <td><textarea id="saturday-prayer-2" rows="4" cols="30" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="4">● 주간 스케줄 (예배, 사역, 훈련, 만남, 행사 등)</td>
+        </tr>
+        <tr>
+            <td colspan="4"><textarea id="weekly-schedule" rows="4" cols="100" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="4">● 주간 미션</td>
+        </tr>
+        <tr>
+            <td colspan="4"><textarea id="weekly-mission" rows="4" cols="100" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2">하나님께 하고 싶은 질문?</td>
+            <td colspan="2">버리고 떠날 것</td>
+        </tr>
+        <tr>
+            <td colspan="2"><textarea id="questions-to-god" rows="4" cols="50" onblur="saveContent(this.id)"></textarea></td>
+            <td colspan="2"><textarea id="things-to-leave" rows="4" cols="50" onblur="saveContent(this.id)"></textarea></td>
+        </tr>
+    </table>
+</body>
+</html>
