@@ -1,16 +1,42 @@
 body {
     font-family: Arial, sans-serif;
+    color: darkgoldenrod;
 }
 table {
     width: 100%;
     border-collapse: collapse;
 }
 th, td {
-    border: 1px solid #d3d3d3;
-    padding: 8px;
+    border: 1px solid darkgoldenrod;
+    padding: 4px;
     text-align: left;
 }
 th {
-    background-color: #f2f2f2;
+    background-color: lightcyan;
     font-weight: unset;
+}
+textarea {
+    width: 100%;
+    height: 200%;
+    resize: none;
+    border: none;
+    outline: none;
+    overflow: auto;
+}
+
+
+h1 {
+    text-align: center;
+    margin: 0;
+}
+b {
+    font-size: 1.2em;
+}
+
+tbody {
+    border: 3px solid darkgoldenrod;
+    text-align: center;
+}
+#weekdays th, #weekdays td {
+    text-align: center;
 }
