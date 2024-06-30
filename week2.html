@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week1</title>
+    <title>Week2</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Firebase SDKs -->
     <script type="module">
@@ -24,11 +24,12 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const collection = "week2"
     
         async function saveContent(id) {
             const content = document.getElementById(id).value;
             console.log(`Saving content for ${id}: ${content}`);
-            await setDoc(doc(db, 'sharedContent', id), {
+            await setDoc(doc(db, collection, id), {
                 text: content
             });
             console.log(`Content saved for ${id}`);
@@ -36,7 +37,7 @@
     
         async function loadContent(id) {
             console.log(`Loading content for ${id}`);
-            const docRef = doc(db, 'sharedContent', id);
+            const docRef = doc(db, collection, id);
             try {
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) { // 올바른 메서드 사용
@@ -64,7 +65,7 @@
     <table>
         <tr>
             <td colspan="4">
-                <h1>Weekly 나를 살리는 3오늘 & 3집중</h1>
+                <h1>237-5000 살리는 전도제자의 묵상운동</h1>
                 <ul>
                     <li>□ 밤 PM.</li>
                     <li>□ 새벽 AM.</li>
@@ -73,14 +74,14 @@
             </td>
         </tr>
         <tr>
-            <td colspan="4">25주차 강단제목과 본문: <b>인정받는 믿음! (마가복음 10:46-50) / 선택하는 힘! (여호수아 24:14-15)</b></td>
+            <td colspan="4">26주차 강단제목과 본문: <b>그리스도인의 가치관 (마태복음 13:44-46) / 나락에서 희락으로! (고린도전서 1:26-29)</b></td>
         </tr>
         <tbody id="weekdays">
             <tr>
                 <th></th>
-                <th><b>오늘의 말씀</b><br>설교 중에 나온 말씀 성구를 약속으로 붙잡고 나누기</th>
-                <th><b>오늘의 기도</b><br>강단말씀으로 기도문 쓰기</th>
-                <th><b>오늘의 전도</b><br>한 주간 만날 사람, 전도대상자, 시설, 장소</th>
+                <th class="word"><b>오늘의 말씀</b><br>설교 중에 나온 말씀 성구를 약속으로 붙잡고 나누기</th>
+                <th class="prayer"><b>오늘의 기도</b><br>강단말씀으로 기도문 쓰기</th>
+                <th class="evangelism"><b>오늘의 전도</b><br>주간 만날 사람, 전도대상자, 시설, 장소</th>
             </tr>
             <tr>
                 <th rowspan="2"><b>월</b> 서론</th>
@@ -144,16 +145,16 @@
             </tr>
         </tbody>
         <tr>
-            <td colspan="4">● 주간 스케줄 (예배, 사역, 훈련, 만남, 행사 등)</td>
+            <td colspan="4"><b>● 교회 주간 스케줄</b>(정시기도)</td>
         </tr>
         <tr>
             <td colspan="4"><textarea id="weekly-schedule" onblur="saveContent(this.id)"></textarea></td>
         </tr>
         <tr>
-            <td colspan="4">● 주간 미션</td>
+            <td colspan="4"><b>● 주간 미션</b></td>
         </tr>
         <tr>
-            <td colspan="2">하나님께 하고 싶은 질문?</td>
+            <td colspan="2">하나님께 드리는 질문과 받은 대답</td>
             <td colspan="2">버리고 떠날 것</td>
         </tr>
         <tr>
